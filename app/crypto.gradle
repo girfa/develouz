@@ -1,0 +1,104 @@
+import javax.crypto.Cipher
+import javax.crypto.CipherOutputStream
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
+import java.security.KeyStore
+import java.security.MessageDigest
+import java.security.SecureRandom
+
+android.applicationVariants.all { variant ->
+    def rawDir = file("${projectDir}/src/main/res/raw")
+    def tmpDir = file("${buildDir}/crypto")
+    def tmpRaw = file("${tmpDir}/raw")
+    variant.mergeResources.outputs.upToDateWhen {false}
+    variant.mergeResources.doFirst {
+        println(":${project.name}:encrypt${variant.name.capitalize()}RawResources")
+        try {
+            tmpDir.mkdirs()
+            def applicationId = project.android.defaultConfig.applicationId
+            def signingConfig = variant.buildType.signingConfig
+            def storeFile = signingConfig.storeFile
+            def storePassword = signingConfig.storePassword
+            def keyAlias = signingConfig.keyAlias
+            def keyPassword = signingConfig.keyPassword
+            def pkcs12 = "PKCS12";
+            def pkcs12File = file("${tmpDir}/${pkcs12}")
+            exec {
+                executable = 'keytool'
+                args = [
+                        "-importkeystore", "-noprompt",
+                        "-srckeystore", storeFile,
+                        "-srcstorepass", storePassword,
+                        "-srcalias", keyAlias,
+                        "-srckeypass", keyPassword,
+                        "-deststoretype", pkcs12,
+                        "-destkeystore", pkcs12File,
+                        "-deststorepass", storePassword,
+                        "-destalias", keyAlias,
+                        "-destkeypass", keyPassword
+                ]
+            }
+            def ks = KeyStore.getInstance(pkcs12)
+            def pis = new FileInputStream(pkcs12File)
+            ks.load(pis, storePassword.chars)
+            def pkey = ks.getKey(keyAlias, keyPassword.chars)
+            def secret = new byte[52]
+            def md = MessageDigest.getInstance("SHA-1")
+            def sha1 = md.digest(applicationId.getBytes("UTF-8"))
+            tmpRaw.mkdirs()
+            for (def src : rawDir.listFiles()) {
+                if (src.name.endsWith(".enc")) continue
+                def raw = file("${tmpRaw.path}/${src.name}")
+                src.renameTo(raw)
+                new SecureRandom().nextBytes(secret)
+                System.arraycopy(sha1, 0, secret, 0, sha1.length);
+                def rsaCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+                rsaCipher.init(Cipher.ENCRYPT_MODE, pkey)
+                byte[] rsa = rsaCipher.doFinal(secret)
+                def skey = new SecretKeySpec(secret, 20, 16, "AES")
+                def aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+                def iv = new IvParameterSpec(secret, 36, 16)
+                aesCipher.init(Cipher.ENCRYPT_MODE, skey, iv)
+                def name = raw.name.take(raw.name.indexOf('.'))
+                def enc = file("${rawDir.path}/${name}.enc")
+                def fos = new FileOutputStream(enc, false)
+                fos.write((int) (rsa.length / 32))
+                fos.write(rsa)
+                def cos = new CipherOutputStream(fos, aesCipher)
+                def fis = new FileInputStream(raw)
+                byte[] buffer = new byte[fis.available()];
+                def len;
+                while ((len = fis.read(buffer)) != -1) {
+                    cos.write(buffer, 0, len);
+                }
+                fis.close()
+                cos.close()
+                fos.close()
+            }
+            pis.close()
+            pkcs12File.delete()
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+    variant.outputs.all { output->
+        output.processResources.outputs.upToDateWhen {false}
+        output.processResources.doLast {
+            try {
+                for (def raw : tmpRaw.listFiles()) {
+                    raw.renameTo(file("${rawDir.path}/${raw.name}"))
+                }
+                tmpRaw.delete()
+                for (def enc : rawDir.listFiles()) {
+                    if (enc.name.endsWith(".enc")) enc.delete()
+                }
+                tmpDir.delete()
+
+            } catch (Exception e) {
+                e.printStackTrace()
+            }
+            println(":${project.name}:restore${variant.name.capitalize()}RawResources")
+        }
+    }
+}
+

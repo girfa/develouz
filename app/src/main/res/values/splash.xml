@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FlatSplash">
+        <item name="splashColor">@color/colorPrimaryDark</item>
+        <item name="splashImage">@null</item>
+        <item name="urlEula">file:///android_asset/eula.html</item>
+        <item name="urlPrivacy">file:///android_asset/privacy_policy.html</item>
+
+        <item name="langPolicy">@string/splashPolicy</item>
+        <item name="langEula">@string/splashEula</item>
+        <item name="langPrivacy">@string/splashPrivacy</item>
+        <item name="langAgree">@string/splashAgree</item>
+        <item name="langPersonalizedAds">@string/splashPersonalizedAds</item>
+        <item name="langNonPersonalizedAds">@string/splashNonPersonalizedAds</item>
+    </style>
+</resources>
