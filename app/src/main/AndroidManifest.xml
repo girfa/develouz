@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.develouz.temp">
+    package="com.devz.app">
 
     <application
         android:allowBackup="false"
@@ -13,11 +13,11 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.develouz.temp.PolicyBrowser"
+            android:name=".PolicyBrowser"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity
-            android:name="com.develouz.temp.SplashScreen"
+            android:name=".SplashScreen"
             android:label="@string/appName"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.SplashScreen">
@@ -29,13 +29,13 @@
         </activity>
 
         <activity
-            android:name="com.develouz.temp.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/appName"
             android:theme="@style/AppTheme.MainActivity"/>
 
         <activity
-            android:name="com.develouz.temp.DictionaryDetail"
+            android:name=".DictionaryDetail"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
     </application>

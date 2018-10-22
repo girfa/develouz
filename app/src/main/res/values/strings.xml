@@ -1,6 +1,6 @@
 <resources>
     <string name="appName">Develouz Template</string>
-    <string name="appDescription">com.develouz.temp</string>
+    <string name="appDescription">com.devz.app</string>
  
     <string name="splashPolicy">Dengan menggunakan aplikasi ini anda setuju dengan [EULA] dan [PRIVACY] kami.</string>
     <string name="splashEula">Persetujuan Pengguna</string>
