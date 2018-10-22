@@ -1,4 +1,4 @@
-package com.develouz.temp;
+package com.devz.app;
 
 import android.content.Intent;
 import android.os.Bundle;

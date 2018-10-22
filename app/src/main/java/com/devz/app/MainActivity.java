@@ -1,4 +1,4 @@
-package com.develouz.temp;
+package com.devz.app;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;

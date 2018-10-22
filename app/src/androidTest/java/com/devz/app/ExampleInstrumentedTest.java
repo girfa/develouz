@@ -1,4 +1,4 @@
-package com.develouz.temp;
+package com.devz.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.webbrowser.app", appContext.getPackageName());
+        assertEquals("com.devz.app", appContext.getPackageName());
     }
 }

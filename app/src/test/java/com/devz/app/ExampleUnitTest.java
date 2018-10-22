@@ -1,4 +1,4 @@
-package com.develouz.temp;
+package com.devz.app;
 
 import org.junit.Test;
 
