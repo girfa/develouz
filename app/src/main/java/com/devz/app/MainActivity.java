@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener {
     private DevelouzMenu menu;
     private Toolbar toolbar;
+    private DrawerLayout drawer;
     private FrameLayout frame;
 
 
@@ -30,17 +31,17 @@ public class MainActivity extends AppCompatActivity
         frame = findViewById(R.id.frame);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        drawer = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, 0, 0);
         drawer.addDrawerListener(toggle);
         drawer.addDrawerListener(this);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.navView);
-        navigationView.bringToFront();
-        navigationView.setNavigationItemSelectedListener(this);
-        menu = new DevelouzMenu(this, navigationView.getMenu());
+        NavigationView nav = findViewById(R.id.navView);
+        nav.bringToFront();
+        nav.setNavigationItemSelectedListener(this);
+        menu = new DevelouzMenu(this, nav.getMenu());
         menu.create();
         onDrawerClosed(null);
     }
@@ -58,9 +59,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         menu.select(item);
-        DrawerLayout drawer = findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
     }
 
     @Override
