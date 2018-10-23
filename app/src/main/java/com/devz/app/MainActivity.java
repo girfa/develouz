@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity
     private DevelouzMenu menu;
     private Toolbar toolbar;
     private DrawerLayout drawer;
+    private NavigationView navigation;
     private FrameLayout frame;
 
 
@@ -38,11 +40,17 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(this);
         toggle.syncState();
 
-        NavigationView nav = findViewById(R.id.navView);
-        nav.bringToFront();
-        nav.setNavigationItemSelectedListener(this);
-        menu = new DevelouzMenu(this, nav.getMenu());
+        navigation = findViewById(R.id.navView);
+        navigation.bringToFront();
+        navigation.setNavigationItemSelectedListener(this);
+        menu = new DevelouzMenu(this, navigation.getMenu());
         menu.create();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        menu.select(navigation.getCheckedItem());
         onDrawerClosed(null);
     }
 
@@ -64,14 +72,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    @Override
     public void onDrawerSlide(View drawerView, float slideOffset) {}
 
     @Override
@@ -80,9 +80,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDrawerClosed(View drawerView) {
         toolbar.setSubtitle(menu.getSelected().getTitle());
-        Layout layout = menu.getLayout();
-        if (layout != null && !menu.equals()) {
-            menu.equalize();
+        if (!menu.equals()) {
+            Layout layout = menu.drawLayout();
             frame.removeAllViews();
             frame.addView(layout);
         }
