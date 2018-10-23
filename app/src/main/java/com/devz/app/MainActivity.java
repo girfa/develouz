@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        menu.select(navigation.getCheckedItem());
+        MenuItem selected = navigation.getCheckedItem();
+        menu.select(selected == null ? menu.getFirst() : selected);
         onDrawerClosed(null);
     }
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDrawerClosed(View drawerView) {
         toolbar.setSubtitle(menu.getSelected().getTitle());
-        if (!menu.equals()) {
+        if (menu.shouldDraw()) {
             Layout layout = menu.drawLayout();
             frame.removeAllViews();
             frame.addView(layout);
