@@ -14,9 +14,9 @@ public class PolicyBrowser extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.policy_browser);
-        WebView webView = findViewById(R.id.policyBrowser);
+        WebView webView = findViewById(R.id.policy_browser);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.appName);
+        toolbar.setTitle(R.string.app_name);
         toolbar.setSubtitle(getIntent().getStringExtra("TITLE"));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -24,8 +24,8 @@
         <item name="startApp">true</item>
         <item name="startAppId">209289988</item>
 
-        <item name="langAvailable">@string/adsAvailable</item>
-        <item name="langUnavailable">@string/adsUnavailable</item>
+        <item name="langAvailable">@string/ads_available</item>
+        <item name="langUnavailable">@string/ads_unavailable</item>
     </style>
 
 </resources>

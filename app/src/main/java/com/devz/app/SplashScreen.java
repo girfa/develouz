@@ -18,7 +18,7 @@ public class SplashScreen extends AppCompatActivity implements FlatSplash.Callba
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-        FlatSplash view = findViewById(R.id.splashScreen);
+        FlatSplash view = findViewById(R.id.splash_screen);
         view.data().setCallback(this);
     }
 

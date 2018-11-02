@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/detailBookmark"
-        android:title="@string/dictionaryBookmark"
+        android:id="@+id/detail_bookmark"
+        android:title="@string/dictionary_bookmark"
         android:icon="@drawable/ic_rate"
         app:showAsAction="always|withText" />
     <item
-        android:id="@+id/detailCopy"
+        android:id="@+id/detail_copy"
         android:title="@android:string/copy"
         android:icon="@drawable/ic_copy"
         app:showAsAction="ifRoom|withText" />

@@ -7,10 +7,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.develouz.lib.Helper;
 import com.develouz.lib.DevelouzMenu;
@@ -33,17 +34,19 @@ public class MainActivity extends AppCompatActivity
         frame = findViewById(R.id.frame);
         setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.drawerLayout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, 0, 0);
         drawer.addDrawerListener(toggle);
         drawer.addDrawerListener(this);
         toggle.syncState();
 
-        navigation = findViewById(R.id.navView);
+        navigation = findViewById(R.id.nav_view);
         navigation.bringToFront();
         navigation.setNavigationItemSelectedListener(this);
         menu = new DevelouzMenu(this, navigation.getMenu());
+        menu.setToolbar(toolbar);
+        menu.setHeader(navigation.getHeaderView(0), R.id.nav_icon, R.id.nav_title, R.id.nav_subtitle);
         menu.create();
     }
 
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (!menu.onBackPressed()) {

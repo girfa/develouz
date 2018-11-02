@@ -21,7 +21,7 @@
 
     <com.develouz.view.DictionaryDetail
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/dictionaryDetail"
+        android:id="@+id/dictionary_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

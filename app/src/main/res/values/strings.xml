@@ -1,28 +1,28 @@
 <resources>
-    <string name="appName">Develouz Template</string>
-    <string name="appDescription">com.devz.app</string>
+    <string name="app_name">Develouz Template</string>
+    <string name="menu_subtitle">com.devz.app</string>
  
-    <string name="splashPolicy">Dengan menggunakan aplikasi ini anda setuju dengan [EULA] dan [PRIVACY] kami.</string>
-    <string name="splashEula">Persetujuan Pengguna</string>
-    <string name="splashPrivacy">Kebijakan Privasi</string>
-    <string name="splashAgree">Saya Setuju</string>
-    <string name="splashPersonalizedAds">Dengan iklan personal</string>
-    <string name="splashNonPersonalizedAds">Dengan iklan selain personal</string>
+    <string name="splash_policy">Dengan menggunakan aplikasi ini anda setuju dengan [EULA] dan [PRIVACY] kami.</string>
+    <string name="splash_eula">Persetujuan Pengguna</string>
+    <string name="splash_privacy">Kebijakan Privasi</string>
+    <string name="splash_agree">Saya Setuju</string>
+    <string name="splash_personalized_ads">Dengan iklan personal</string>
+    <string name="splash_non_personalized_ads">Dengan iklan selain personal</string>
 
     <string name="ads">Tanpa iklan</string>
-    <string name="adsAvailable">Untuk menggunakan aplikasi ini tanpa iklan, silakan tonton video berikut ini</string>
-    <string name="adsUnavailable">Fitur ini untuk sementara tidak tersedia, silahkan coba lagi nanti</string>
+    <string name="ads_available">Untuk menggunakan aplikasi ini tanpa iklan, silakan tonton video berikut ini</string>
+    <string name="ads_unavailable">Fitur ini untuk sementara tidak tersedia, silahkan coba lagi nanti</string>
 
     <string name="more">Aplikasi lain</string>
 
     <string name="share">Share aplikasi</string>
-    <string name="shareDialog">Share dengan</string>
-    <string name="shareMessage">[NAME] sekarang tersedia di PlayStore\nhttps://play.google.com/store/apps/details?id=[ID]</string>
+    <string name="share_dialog">Share dengan</string>
+    <string name="share_message">[NAME] sekarang tersedia di PlayStore\nhttps://play.google.com/store/apps/details?id=[ID]</string>
 
     <string name="rate">Rate aplikasi</string>
-    <string name="rateMessage">Suka dengan [NAME]? Rate kami di PlayStore untuk membuat kami tetap terinspirasi.\n\nUntuk saran, silahkan tulis di komentar.</string>
+    <string name="rate_message">Suka dengan [NAME]? Rate kami di PlayStore untuk membuat kami tetap terinspirasi.\n\nUntuk saran, silahkan tulis di komentar.</string>
 
     <string name="close">Keluar</string>
-    <string name="closeMessage">Apakah anda yakin ingin mengeluarkan [NAME]?</string>
+    <string name="close_message">Apakah anda yakin ingin mengeluarkan [NAME]?</string>
 </resources>
 

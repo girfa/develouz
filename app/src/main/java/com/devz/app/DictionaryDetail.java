@@ -19,7 +19,7 @@ public class DictionaryDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dictionary_detail);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        detail = findViewById(R.id.dictionaryDetail);
+        detail = findViewById(R.id.dictionary_detail);
         detail.data().setIntent(getIntent());
         toolbar.setTitle(detail.data().getTitle());
         toolbar.setSubtitle(detail.data().getSubtitle());
@@ -31,7 +31,7 @@ public class DictionaryDetail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.dictionary_detail, menu);
-        MenuItem mark = menu.findItem(R.id.detailBookmark);
+        MenuItem mark = menu.findItem(R.id.detail_bookmark);
         mark.setIcon(detail.data().isBookmarked() ? R.drawable.ic_bookmark_on : R.drawable.ic_bookmark_off);
         return true;
     }
@@ -39,11 +39,11 @@ public class DictionaryDetail extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.detailBookmark:
+            case R.id.detail_bookmark:
                 detail.data().switchBookmark();
                 supportInvalidateOptionsMenu();
                 break;
-            case R.id.detailCopy:
+            case R.id.detail_copy:
                 detail.data().copy();
                 break;
             default:
