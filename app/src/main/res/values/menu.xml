@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="DevelouzMenu">
-        <item name="toolbar">true</item>
-        <item name="icon">@mipmap/ic_launcher</item>
-        <item name="title">@string/app_name</item>
-        <item name="subtitle">@string/menu_subtitle</item>
-        <item name="viewItems">@array/ViewItems</item>
-        <item name="menuItems">@array/MenuItems</item>
-    </style>
-
     <array name="ViewItems">
         <item>@style/Google</item>
         <item>@style/LaguWajib</item>
@@ -39,55 +30,6 @@
         <item name="viewClass">.view.WebBrowser</item>
         <item name="url">zip://bungaku.html</item>
         <item name="zip">@raw/laguwajib</item>
-        <item name="visible">true</item>
-    </style>
-
-    <array name="MenuItems">
-        <item>@style/FreeAds</item>
-        <item>@style/MoreApps</item>
-        <item>@style/ShareApp</item>
-        <item>@style/RateApp</item>
-        <item>@style/CloseApp</item>
-    </array>
-
-    <style name="FreeAds">
-        <item name="title">@string/ads</item>
-        <item name="icon">@drawable/ic_ads</item>
-        <item name="menuClass">.menu.FreeAds</item>
-        <item name="visible">true</item>
-    </style>
-
-    <style name="MoreApps">
-        <item name="title">@string/more</item>
-        <item name="icon">@drawable/ic_apps</item>
-        <item name="menuClass">.menu.MoreApps</item>
-        <item name="developerId">5700313618786177705</item>
-        <item name="visible">true</item>
-    </style>
-
-    <style name="ShareApp">
-        <item name="title">@string/share</item>
-        <item name="icon">@drawable/ic_share</item>
-        <item name="menuClass">.menu.ShareApp</item>
-        <item name="dialog">@string/share_dialog</item>
-        <item name="message">@string/share_message</item>
-        <item name="visible">true</item>
-    </style>
-
-    <style name="RateApp">
-        <item name="title">@string/rate</item>
-        <item name="icon">@drawable/ic_rate</item>
-        <item name="menuClass">.menu.RateApp</item>
-        <item name="message">@string/rate_message</item>
-        <item name="visible">true</item>
-    </style>
-
-    <style name="CloseApp">
-        <item name="title">@string/close</item>
-        <item name="icon">@drawable/ic_exit</item>
-        <item name="menuClass">.menu.CloseApp</item>
-        <item name="message">@string/close_message</item>
-        <item name="confirm">true</item>
         <item name="visible">true</item>
     </style>
 
