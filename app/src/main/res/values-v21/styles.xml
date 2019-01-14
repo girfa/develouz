@@ -6,10 +6,6 @@
         <item name="android:navigationBarColor">@android:color/background_dark</item>
     </style>
 
-    <style name="AppTheme.SplashScreen">
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-    </style>
-
     <style name="AppTheme.MainActivity">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
