@@ -10,11 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.develouz.lib.Helper;
 import com.develouz.lib.DevelouzMenu;
+import com.develouz.lib.Helper;
 import com.develouz.view.Layout;
 
 public class MainActivity extends AppCompatActivity

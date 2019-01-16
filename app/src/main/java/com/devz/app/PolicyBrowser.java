@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-
 public class PolicyBrowser extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Develouz Template</string>
-    <string name="menu_subtitle">com.devz.app</string>
+    <string name="menu_subtitle">Welcome back!</string>
  
     <string name="splash_policy">Dengan menggunakan aplikasi ini anda setuju dengan [EULA] dan [PRIVACY] kami.</string>
     <string name="splash_eula">Persetujuan Pengguna</string>

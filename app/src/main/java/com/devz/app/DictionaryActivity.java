@@ -7,12 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-/**
- * Created by Afrig Aminuddin on 23/08/2017.
- */
+import com.develouz.view.DictionaryDetail;
 
-public class DictionaryDetail extends AppCompatActivity {
-    private com.develouz.view.DictionaryDetail detail;
+public class DictionaryActivity extends AppCompatActivity {
+    private DictionaryDetail detail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

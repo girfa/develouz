@@ -7,11 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.develouz.view.FlatSplash;
 
-
-/**
- * Created by Afrig Aminuddin on 23/08/2017.
- */
-
 public class SplashScreen extends AppCompatActivity implements FlatSplash.Callback {
 
     @Override

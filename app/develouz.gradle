@@ -1,0 +1,167 @@
+import groovy.xml.XmlUtil
+
+import javax.crypto.Cipher
+import javax.crypto.CipherOutputStream
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
+import java.security.KeyStore
+import java.security.MessageDigest
+import java.security.SecureRandom
+
+android.applicationVariants.all { variant ->
+    if (!project.autoRefactor) return
+    def newId = project.android.defaultConfig.applicationId
+    def xml = file("${projectDir}/src/main/AndroidManifest.xml")
+    def manifest = new XmlSlurper().parse(file(xml))
+    def oldId = manifest.@package.text()
+
+    tasks.register("refactor${variant.name.capitalize()}Package") {
+        dependsOn "pre${variant.name.capitalize()}Build"
+        outputs.upToDateWhen { newId == oldId }
+        doLast {
+            file("${projectDir}/src/").eachDir {dir->
+                delete "${dir}/tmp"
+                copy {
+                    from "${dir}/java/${oldId.replace('.', '/')}"
+                    into "${dir}/tmp/${newId.replace('.', '/')}"
+                    filter { line ->
+                        line.replaceAll("package ${oldId}", "package ${newId}")
+
+                    }
+                }
+                delete "${dir}/java"
+                file("${dir}/tmp").renameTo(file("${dir}/java"))
+            }
+        }
+    }
+
+    tasks.register("refactor${variant.name.capitalize()}Manifest") {
+        dependsOn "refactor${variant.name.capitalize()}Package"
+        outputs.upToDateWhen { newId == oldId }
+        doLast {
+            manifest.@package = newId
+            xml.withWriter {out->
+                XmlUtil.serialize(manifest, out)
+            }
+        }
+    }
+
+    tasks.getByName("compile${variant.name.capitalize()}Renderscript") {
+        dependsOn "refactor${variant.name.capitalize()}Manifest"
+    }
+}
+
+android.applicationVariants.all { variant ->
+    if (!project.encryptRaw) return
+    def srcDir = "${projectDir}/src/main/res/raw"
+    def develouz = "${buildDir}/develouz"
+    def rawDir = "${develouz}/raw"
+    def encDir = "${develouz}/enc"
+    def jksDir = "${develouz}/jks"
+    def signing = variant.buildType.signingConfig
+    def pkcs = "${variant.name}.jks"
+
+    tasks.register("prepare${variant.name.capitalize()}Keystore") {
+        inputs.file signing.storeFile
+        outputs.file "${jksDir}/${pkcs}"
+        doLast {
+            delete "${jksDir}/${pkcs}"
+            exec {
+                executable = 'keytool'
+                args = [
+                        "-importkeystore", "-noprompt",
+                        "-srckeystore", signing.storeFile,
+                        "-srcstorepass", signing.storePassword,
+                        "-srcalias", signing.keyAlias,
+                        "-srckeypass", signing.keyPassword,
+                        "-deststoretype", "PKCS12",
+                        "-destkeystore", "${jksDir}/${pkcs}",
+                        "-deststorepass", signing.storePassword,
+                        "-destalias", signing.keyAlias,
+                        "-destkeypass", signing.keyPassword
+                ]
+            }
+        }
+    }
+
+    tasks.register("backup${variant.name.capitalize()}Raw") {
+        inputs.file signing.storeFile
+        outputs.file "${jksDir}/${pkcs}"
+        inputs.dir srcDir
+        outputs.dir rawDir
+        mustRunAfter "generate${variant.name.capitalize()}Resources"
+        doLast {
+            copy {
+                from srcDir
+                into rawDir
+                exclude "*.enc"
+            }
+        }
+    }
+
+    tasks.register("encrypt${variant.name.capitalize()}Raw") {
+        def appId = project.android.defaultConfig.applicationId
+        inputs.file signing.storeFile
+        outputs.file "${jksDir}/${pkcs}"
+        inputs.dir rawDir
+        outputs.dir encDir
+        dependsOn "backup${variant.name.capitalize()}Raw"
+        dependsOn "prepare${variant.name.capitalize()}Keystore"
+        doLast {
+            def rawDirFile = file(rawDir).listFiles()
+            if (rawDirFile.length == 0) return
+            def ks = KeyStore.getInstance("PKCS12")
+            ks.load(new FileInputStream("${jksDir}/${pkcs}"), signing.storePassword.chars)
+            def pkey = ks.getKey(signing.keyAlias, signing.keyPassword.chars)
+            def secret = new byte[52]
+            def sha1 = MessageDigest.getInstance("SHA-1").digest(appId.getBytes("UTF-8"))
+            for (def raw : rawDirFile) {
+                new SecureRandom().nextBytes(secret)
+                System.arraycopy(sha1, 0, secret, 0, sha1.length);
+                def rsaCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+                rsaCipher.init(Cipher.ENCRYPT_MODE, pkey)
+                byte[] rsa = rsaCipher.doFinal(secret)
+                def aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+                aesCipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(secret, 20, 16, "AES"),
+                        new IvParameterSpec(secret, 36, 16))
+                def name = raw.name.take(raw.name.indexOf('.'))
+                file(encDir).mkdirs()
+                def enc = file("${encDir}/${name}.enc")
+                def fos = new FileOutputStream(enc, false)
+                fos.write((int) (rsa.length / 32))
+                fos.write(rsa)
+                def cos = new CipherOutputStream(fos, aesCipher)
+                def fis = new FileInputStream(raw)
+                byte[] buffer = new byte[fis.available()];
+                def len;
+                while ((len = fis.read(buffer)) != -1) {
+                    cos.write(buffer, 0, len);
+                }
+                fis.close()
+                cos.close()
+                fos.close()
+            }
+        }
+    }
+
+    tasks.getByName("merge${variant.name.capitalize()}Resources") {
+        doFirst {
+            delete fileTree(srcDir)
+            copy {
+                from encDir
+                into srcDir
+            }
+        }
+
+        doLast {
+            delete fileTree(srcDir)
+            copy {
+                from rawDir
+                into srcDir
+            }
+        }
+
+        dependsOn "encrypt${variant.name.capitalize()}Raw"
+    }
+}
+
