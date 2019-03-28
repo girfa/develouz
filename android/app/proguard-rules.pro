@@ -19,15 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep public interface com.develouz.ad.*
--keep public class com.develouz.ad.* {
-    public *;
-}
--keep public interface com.develouz.lib.*
--keep public class com.develouz.lib.* {
-    public *;
-}
--keep public class com.develouz.view.* {
-    public *;
+-keep public interface com.develouz.*.*
+-keep public class com.develouz.*.* {
+    public protected *;
 }
 -keepparameternames

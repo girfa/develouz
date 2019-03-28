@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="develouzAd">@style/DevelouzAd</item>
+        <item name="develouzAds">@style/DevelouzAds</item>
         <item name="develouzMenu">@style/DevelouzMenu</item>
         <item name="flatSplash">@style/FlatSplash</item>
     </style>

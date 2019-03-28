@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DevelouzAds">
+        <item name="bannerColor">#000</item>
+        <item name="bannerGravity">bottom</item>
+        <item name="interstitialEvery">10</item>
+        <item name="adsList">@array/AdsList</item>
+        <item name="langAvailable">@string/ads_available</item>
+        <item name="langUnavailable">@string/ads_unavailable</item>
+    </style>
+
+    <array name="AdsList">
+        <item>@style/Admob</item>
+        <item>@style/Facebook</item>
+        <item>@style/StartApp</item>
+    </array>
+
+    <style name="Admob">
+        <item name="adsClass">.ads.Admob</item>
+        <item name="adsRatio">3</item>
+        <item name="appId">ca-app-pub-9892833467593910/3657578188</item>
+        <item name="bannerId">ca-app-pub-9892833467593910/3657578188</item>
+        <item name="interstitialId">ca-app-pub-9892833467593910/8087777784</item>
+        <item name="rewardedId">ca-app-pub-3940256099942544/5224354917</item>
+    </style>
+
+    <style name="Facebook">
+        <item name="adsClass">.ads.Facebook</item>
+        <item name="adsRatio">0</item>
+        <item name="bannerId">335138220310937_335141680310591</item>
+        <item name="interstitialId">335138220310937_335142203643872</item>
+    </style>
+
+    <style name="StartApp">
+        <item name="adsClass">.ads.StartApp</item>
+        <item name="adsRatio">1</item>
+        <item name="appId">209289988</item>
+    </style>
+
+</resources>

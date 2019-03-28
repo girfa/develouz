@@ -6,11 +6,11 @@
         <item name="icon">@mipmap/ic_launcher</item>
         <item name="title">@string/app_name</item>
         <item name="subtitle">@string/menu_subtitle</item>
-        <item name="viewItems">@array/ViewItems</item>
-        <item name="menuItems">@array/MenuItems</item>
+        <item name="viewList">@array/ViewList</item>
+        <item name="menuList">@array/MenuList</item>
     </style>
 
-    <array name="MenuItems">
+    <array name="MenuList">
         <item>@style/FreeAds</item>
         <item>@style/MoreApps</item>
         <item>@style/ShareApp</item>
