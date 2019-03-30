@@ -1,10 +1,1 @@
 include ':app'
-include ':core'
-project(':core').projectDir = new File('../../library/core/')
-
-//include ':admob'
-//project(':admob').projectDir = new File('../../library/admob/')
-//include ':startapp'
-//project(':startapp').projectDir = new File('../../library/startapp/')
-//include ':facebook'
-//project(':facebook').projectDir = new File('../../library/facebook/')
