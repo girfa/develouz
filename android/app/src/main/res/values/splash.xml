@@ -5,7 +5,7 @@
         <item name="splashImage">@null</item>
         <item name="urlEula">file:///android_asset/eula.html</item>
         <item name="urlPrivacy">file:///android_asset/privacy_policy.html</item>
-        <item name="userConsent">ask</item>
+        <item name="consent">ask</item>
 
         <item name="langPolicy">@string/splash_policy</item>
         <item name="langEula">@string/splash_eula</item>
